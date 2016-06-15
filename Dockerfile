@@ -160,11 +160,8 @@ ENV PYSPARK_PYTHON python3
 EXPOSE 8888
 WORKDIR /home/$NB_USER/work
 ENTRYPOINT ["tini", "--"]
-CMD ["start-notebook.sh"]
+CMD ["bash"]
 
-# Add local files as late as possible to avoid cache busting
-# Start notebook server
-COPY start-notebook.sh /usr/local/bin/
 
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
 RUN chown -R $NB_USER:users /home/$NB_USER/.jupyter
