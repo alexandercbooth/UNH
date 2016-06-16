@@ -105,7 +105,7 @@ RUN pip install lifelines
 # Hiveplot for Social Network Analysis
 RUN pip install hiveplot
 
-# Add tensorflow & Geodata tools
+# Add Geodata tools
 RUN conda config --add channels conda-forge && \
     conda install -y pyshp && \
     conda install -y geopandas
