@@ -107,8 +107,7 @@ RUN pip install hiveplot
 
 # Add Geodata tools
 RUN conda config --add channels conda-forge && \
-    conda install -y pyshp && \
-    conda install -y geopandas
+    conda install -y pyshp
 
 
 USER root
