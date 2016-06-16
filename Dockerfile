@@ -156,6 +156,11 @@ ENV PATH /usr/local/spark/bin:$PATH
 # Configure for Python 3
 ENV PYSPARK_PYTHON python3
 
+# Add gitsome
+RUN pip install gitsome
+
+RUN cd /usr/local/src && \
+    wget https://raw.githubusercontent.com/donnemartin/gitsome/master/scripts/gh_complete.sh
 # Configure container startup as root
 EXPOSE 8888
 WORKDIR /home/$NB_USER/work
