@@ -5,6 +5,7 @@
 ## What's inside
 - Python 3 w/ data science packages & Jupyter kernel
 - R with data science packages & Jupyter kernel
+- RStudio
 - Scala
 - Spark 1.6 with Jupyter Toree kernel for scala
 - SQLite3
@@ -60,6 +61,6 @@ A notebook server can then be launched in the usual manner:
 ```
 jupyter notebook --no-browser
 ```
-Then simply visit `http://localhost:8888` in your favorite browser if you're running docker natively. If you are running it on a virtual machine like the one created above, first run `docker-machine ip unh_vm`. This will return the IP of the virtual machine you are running. Now, navigate to `http://IP:8888` where "IP" is the aforementioned IP address. 
+Then simply visit `http://localhost:8888` in your favorite browser if you're running docker natively. If you are running it on a virtual machine like the one created above, first run `docker-machine ip unh_vm`. This will return the IP of the virtual machine you are running. Now, navigate to `http://IP:8888` where "IP" is the aforementioned IP address.
 
 Similarly, you can run your R, Python and Spark programs from the command line or interactively through their repls.
