@@ -1,5 +1,5 @@
-FROM debian@sha256:a9c958be96d7d40df920e7041608f2f017af81800ca5ad23e327bc402626b58e
-
+#FROM debian@sha256:a9c958be96d7d40df920e7041608f2f017af81800ca5ad23e327bc402626b58e
+FROM debian:latest
 MAINTAINER Alexander Booth <alexander.c.booth@gmail.com>
 
 USER root
@@ -26,6 +26,23 @@ RUN apt-get update && apt-get install -yq --no-install-recommends --fix-missing 
     npm \
     locales \
     libxrender1 \
+    libapparmor1 \
+    libedit2 \
+    libcurl4-openssl-dev \
+    libssl1.0.0 \
+    libssl-dev \
+    psmisc \
+    sudo \
+    && VER=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
+    && wget -q http://download2.rstudio.org/rstudio-server-${VER}-amd64.deb \
+    && dpkg -i rstudio-server-${VER}-amd64.deb \
+    && rm rstudio-server-*-amd64.deb \
+    && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc /usr/local/bin \
+    && ln -s /usr/lib/rstudio-server/bin/pandoc/pandoc-citeproc /usr/local/bin \
+    && wget https://github.com/jgm/pandoc-templates/archive/1.15.0.6.tar.gz \
+    && mkdir -p /opt/pandoc/templates && tar zxf 1.15.0.6.tar.gz \
+    && cp -r pandoc-templates*/* /opt/pandoc/templates && rm -rf pandoc-templates* \
+    && mkdir /root/.pandoc && ln -s /opt/pandoc/templates /root/.pandoc/templates \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -81,9 +98,13 @@ ENV PATH /opt/conda/bin:$PATH
 
 # Install R conda and IRKernel
 RUN conda install -y -c r r-essentials
-
-
 USER root
+## Use s6
+RUN wget -P /tmp/ https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz \
+  && tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
+
+
+
 
 # Install XGBoost
 RUN cd /usr/local/src && mkdir xgboost && cd xgboost && \
@@ -166,8 +187,10 @@ WORKDIR /home/$NB_USER/work
 ENTRYPOINT ["tini", "--"]
 CMD ["bash"]
 
-
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
 RUN chown -R $NB_USER:users /home/$NB_USER/.jupyter
+RUN cp /opt/conda/bin/R /usr/local/bin
+
+RUN echo unh:unh | chpasswd
 
 USER unh
