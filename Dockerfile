@@ -194,7 +194,10 @@ RUN cp /opt/conda/bin/R /usr/local/bin
 RUN echo unh:unh | chpasswd
 
 # Add Caravel
-RUN pip install caravel
+RUN cd /tmp && \
+    git clone https://github.com/airbnb/caravel.git && \
+    cd caravel && \
+    pip install -e .
 
 # copy admin password details to /caravel for fabmanager
 RUN mkdir /caravel
