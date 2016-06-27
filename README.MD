@@ -7,6 +7,7 @@
 - R with data science packages & Jupyter kernel
 - RStudio
 - Scala
+- Caravel
 - Spark 1.6 with Jupyter Toree kernel for scala
 - SQLite3
 - Usual linux tools like git and vim
