@@ -112,11 +112,10 @@ RUN cd /usr/local/src && mkdir xgboost && cd xgboost && \
     make && cd python-package && python setup.py install
 
 
-USER unh
 # Install Nets, keras, lasagne
 RUN pip install keras && \
     pip install git+https://github.com/dnouri/nolearn.git@master#egg=nolearn==0.7.git
-
+USER unh
 # Install Gensim for nlp
 RUN pip install gensim
 
