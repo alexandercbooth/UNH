@@ -216,3 +216,7 @@ RUN caravel init
 RUN caravel load_examples
 
 USER unh
+
+RUN pip install altair
+RUN jupyter nbextension install --sys-prefix --py vega
+USER unh
