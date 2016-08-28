@@ -215,6 +215,5 @@ RUN cd /tmp && \
 # RUN caravel load_examples
 
 
-RUN pip install altair
-RUN jupyter nbextension install --sys-prefix --py vega
+RUN conda install altair --channel conda-forge
 USER unh
