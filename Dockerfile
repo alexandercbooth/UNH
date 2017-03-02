@@ -217,3 +217,5 @@ RUN cd /tmp && \
 
 RUN conda install altair --channel conda-forge
 USER unh
+# Add pymc3
+RUN pip install pymc3 plotly
